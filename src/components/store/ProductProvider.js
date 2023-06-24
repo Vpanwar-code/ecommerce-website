@@ -33,9 +33,32 @@ const ProductProvider = (props) =>{
 
         setProduct(updatedProducts);
     }
+
+
+     const removeItemFromCart = (id)=>{
+        const existingProductIndex = products.findIndex(
+            (item)=> item.id === id
+        );
+
+        const existingProduct = products[existingProductIndex];
+        
+        let updatedProducts;
+        if(existingProduct.quantity === 1){
+            updatedProducts= products.filter(item => item.id !== id);
+        }
+        else{
+            const updatedProduct = {...existingProduct , quantity : existingProduct.quantity -1};
+            updatedProducts = [...products];
+            updatedProducts[existingProductIndex] = updatedProduct;
+        }
+       
+        setProduct(updatedProducts);
+     }
+
     const productContext={
         items : products,
-        addItem : addProductToCart
+        addItem : addProductToCart,
+        removeItem : removeItemFromCart
     }
     return(
         <CartContext.Provider value={productContext} >
