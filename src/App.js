@@ -4,15 +4,29 @@ import Summary from './components/layout/Summary';
 import FooterComponent from './components/layout/FooterComponent';
 import AvailableProducts from './components/products/AvailableProducts';
 import ProductProvider from './components/store/ProductProvider';
+import About from './components/layout/About';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
 
 function App() {
 return(
-    <ProductProvider>
+  <Router>
+ <ProductProvider>
       <Navigation/>
       <Summary/>
-      <AvailableProducts/>
+      <Routes>
+        <Route path="/" element={<AvailableProducts/>}/>
+      </Routes>
+      <Routes>
+        <Route path="/about" element={<About/>}/>
+      </Routes>
       <FooterComponent/>
     </ProductProvider>
+  </Router>
+   
 )
 
 }
