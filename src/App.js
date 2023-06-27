@@ -10,6 +10,7 @@ import {
   Route,
   Routes
 } from "react-router-dom";
+import Home from './components/layout/Home';
 
 function App() {
 return(
@@ -18,7 +19,10 @@ return(
       <Navigation/>
       <Summary/>
       <Routes>
-        <Route path="/" element={<AvailableProducts/>}/>
+        <Route path="/" element={<Home/>}/>
+      </Routes>
+      <Routes>
+        <Route path="/store" element={<AvailableProducts/>}/>
       </Routes>
       <Routes>
         <Route path="/about" element={<About/>}/>
