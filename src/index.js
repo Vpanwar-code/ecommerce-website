@@ -1,10 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
+import App from "./App";
+import { AuthContextProvider } from "./components/store/Auth-Context";
 
-import './index.css';
-import App from './App';
-import '../node_modules/react-bootstrap/dist/react-bootstrap';
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <AuthContextProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </AuthContextProvider>
+);

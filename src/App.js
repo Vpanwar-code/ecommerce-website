@@ -1,38 +1,44 @@
-import React from 'react';
-import Navigation from './components/layout/Navigation';
-import Summary from './components/layout/Summary';
-import FooterComponent from './components/layout/FooterComponent';
-import AvailableProducts from './components/products/AvailableProducts';
-import ProductProvider from './components/store/ProductProvider';
-import About from './components/layout/About';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes
-} from "react-router-dom";
-import Home from './components/layout/Home';
+import CartProvider from "./components/store/CartProvider";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
+import Store from "./components/Pages/Store";
+import About from "./components/Pages/About";
+import Home from "./components/Pages/Home";
+import Contact from "./components/Pages/ContactUs";
+import ProductDetails from "./components/Pages/ProductsPage";
+import AuthForm from "./components/Auth/AuthForm";
+import AuthContext from "./components/store/Auth-Context";
+import { useContext } from "react";
 
 function App() {
-return(
-  <Router>
- <ProductProvider>
-      <Navigation/>
-      <Summary/>
+  const authCtx = useContext(AuthContext);
+  return (
+    <CartProvider>
+      <Header />
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        {authCtx.isLoggedIn && (
+          <>
+            <Route path="/home" element={<Home />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact_us" element={<Contact />} />
+          </>
+        )}
+        {!authCtx.isLoggedIn && (
+          <>
+            <Route path="/home" element={<AuthForm />} />
+            <Route path="/store" element={<AuthForm />} />
+            <Route path="/about" element={<AuthForm />} />
+            <Route path="/contact_us" element={<AuthForm />} />
+            <Route path="/auth" element={<AuthForm />} />
+          </>
+        )}
       </Routes>
-      <Routes>
-        <Route path="/store" element={<AvailableProducts/>}/>
-      </Routes>
-      <Routes>
-        <Route path="/about" element={<About/>}/>
-      </Routes>
-      <FooterComponent/>
-    </ProductProvider>
-  </Router>
-   
-)
-
+      <Footer />
+    </CartProvider>
+  );
 }
 
 export default App;
